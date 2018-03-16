@@ -1,0 +1,146 @@
+/* ==========================================================================
+ * Main View CSS styles
+ *
+ * @project: React Speech App
+ * @author: Andre Goncalves (andre@andregoncalves)
+ * @copyright: 2018 Andre Goncalves
+ * ==========================================================================
+ */
+
+
+section.main-screen {
+  transform: translateY( -750px );
+  z-index: 1;
+
+}
+section.main-screen.visible {
+  transform: translateY( 0px );
+
+}
+
+.main-screen header {
+  text-align: center;
+  padding: 1em;
+  background: #32bafa;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.main-screen h1 {
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+.main-screen .microphone {
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 50px;
+  text-align:center;
+
+}
+.main-screen div.microphone svg {
+  fill: rgba(255, 255, 255, 0.8);
+  display: block;
+  margin: auto;
+  width: 100px;
+}
+.main-screen div.microphone.active svg {
+  animation: leaves 0.5s ease-in-out infinite alternate;
+  fill: #32bafa;;
+}
+
+@keyframes leaves {
+  0% {
+      transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+  }
+  100% {
+      transform: scale(0.9);
+      -webkit-transform: scale(0.9);
+  }
+}
+
+@keyframes blink {
+  0% {
+      transform: scale(0.8);
+      -webkit-transform: scale(0.8);
+  }
+  100% {
+      transform: scale(2);
+      -webkit-transform: scale(2);
+  }
+}
+
+.main-screen .microphone small {
+  font-size: 12px;
+}
+
+
+
+.main-screen .language {
+  position: absolute;
+  bottom: 1.5em;
+  text-align: center;
+  width: 100%;
+  font-size: 1.8em;
+  cursor: pointer;
+}
+.main-screen .language:hover {
+  color: white;
+
+}
+.main-screen .language:hover > div {
+  fill: white;
+}
+
+.main-screen div.language > div {
+  width: 30px;
+  fill: rgba(255, 255, 255, 0.8);
+  margin-top: 20px;
+  margin: auto;
+  line-height: 30px;
+}
+
+.main-screen canvas {
+  width: 100%;
+  height: 100px;
+  display: block;
+  color: black;
+}
+
+.main-screen div.phrases {
+  text-align: center;
+  margin: 2em auto;
+}
+.main-screen div.phrases > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-screen div.phrases svg {
+  margin: 1em;
+  fill: rgba(255, 255, 255, 0.8);
+}
+.main-screen div.phrases svg.result-success {
+  animation: blink 0.5s ease-in-out infinite alternate;
+}
+.main-screen div.phrases small {
+  font-size: 12px;
+}
+.main-screen div.phrases textarea {
+  padding: 5px 8px;
+  background: rgba(255,255,255,0.8);
+  width: 70%;
+  margin: 0.5em auto;
+  display: block;
+  border: 0;
+  font-size: 1.25em;
+  text-align: center;
+  border:0;
+  font-family: monospace;
+  background: transparent;
+  color: #FFF;
+  resize: none;
+}
+.main-screen div.phrases textarea:hover {
+  background: rgba(255,255,255,0.8);
+  color: #000;
+}

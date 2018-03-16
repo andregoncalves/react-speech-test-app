@@ -1,0 +1,45 @@
+{
+  "name": "react-speech-test-app",
+  "version": "1.0.0",
+  "description": "",
+  "license": "MIT",
+  "scripts": {
+    "build": "npm run lint && NODE_ENV=production rollup -c",
+    "watch": "rollup -cw",
+    "start": "rollup -cw",
+    "lint": "tslint --project tsconfig.json --type-check"
+  },
+  "author": {
+    "name": "Andre Goncalves",
+    "email": "andre@andregoncalves.com",
+    "url": "https://andregoncalves.com"
+  },
+  "devDependencies": {
+    "@types/es6-promise": "^3.3.0",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "autoprefixer": "^8.0.0",
+    "react": "16",
+    "react-dom": "16",
+    "rollup": "latest",
+    "rollup-plugin-commonjs": "latest",
+    "rollup-plugin-copy": "latest",
+    "rollup-plugin-css-only": "latest",
+    "rollup-plugin-livereload": "latest",
+    "rollup-plugin-node-resolve": "latest",
+    "rollup-plugin-postcss": "latest",
+    "rollup-plugin-replace": "latest",
+    "rollup-plugin-serve": "latest",
+    "rollup-plugin-typescript2": "latest",
+    "rollup-plugin-uglify": "latest",
+    "rollup-watch": "latest",
+    "tslib": "latest",
+    "tslint": "latest",
+    "typescript": "latest",
+    "typings": "latest"
+  },
+  "dependencies": {
+    "npm": "^5.7.1",
+    "react-autosize-textarea": "^3.0.2"
+  }
+}

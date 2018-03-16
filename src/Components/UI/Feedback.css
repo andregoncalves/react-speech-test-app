@@ -1,0 +1,37 @@
+/* ==========================================================================
+ * Feedback Component CSS
+ *
+ * @project: React Speech App
+ * @author: Andre Goncalves (andre@andregoncalves)
+ * @copyright: 2018 Andre Goncalves
+ * ==========================================================================
+ */
+div.feedback {
+  text-align: center;
+}
+
+div.feedback p {
+  font-size: 14px;
+  display: inline-block;
+  padding: 4px 8px;
+  color: #FFF;
+}
+
+div.feedback.FAILED p {
+  background: #dc5151;
+}
+
+div.feedback.SUCCESS p {
+  background: green;
+}
+
+div.feedback svg {
+  width: 75px;
+  fill: green;
+  display: block;
+  margin: auto;
+}
+
+div.feedback svg#failed {
+  fill: #dc5151;
+}

@@ -1,0 +1,34 @@
+/* ==========================================================================
+ * Language Menu Component CSS
+ *
+ * @project: React Speech App
+ * @author: Andre Goncalves (andre@andregoncalves)
+ * @copyright: 2018 Andre Goncalves
+ * ==========================================================================
+ */
+
+#language-menu-screen {
+  background: hsl(206, 70%, 35%);
+}
+
+#language-menu-screen header {
+  text-align: center;
+  padding: 1em;
+  background: #1E384C;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+#language-menu-screen ul {
+  list-style: none;
+  font-size: 2.5em;
+}
+#language-menu-screen li {
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: color linear 0.25s;
+  text-shadow: 1px 1px 1px rgba(0,0,0, 0.25);
+}
+#language-menu-screen li:hover {
+  color: #000;
+}
+
