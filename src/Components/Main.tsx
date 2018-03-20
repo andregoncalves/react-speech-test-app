@@ -151,7 +151,7 @@ class App extends React.Component <AppProps, AppState> {
           compression: 5,
         };
 
-        console.log('audioContext.sampleRate: ' + config.samplerate);
+        console.log(`audioContext.sampleRate: ${config.samplerate}`);
         this.encoder.postMessage({ cmd: WorkerCommand.INIT, config });
 
         this.media.node.onaudioprocess = (e: any) => {

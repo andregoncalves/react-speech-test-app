@@ -7,7 +7,7 @@
     "build": "npm run lint && NODE_ENV=production rollup -c",
     "watch": "rollup -cw",
     "start": "rollup -cw",
-    "lint": "tslint --project tsconfig.json --type-check"
+    "lint": "tslint --project tsconfig.json"
   },
   "author": {
     "name": "Andre Goncalves",
@@ -16,12 +16,15 @@
   },
   "devDependencies": {
     "@types/es6-promise": "^3.3.0",
+    "@types/prop-types": "^15.5.2",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "autoprefixer": "^8.0.0",
     "react": "16",
+    "react-autosize-textarea": "^3.0.2",
     "react-dom": "16",
     "rollup": "latest",
+    "rollup-plugin-babili": "^3.1.1",
     "rollup-plugin-commonjs": "latest",
     "rollup-plugin-copy": "latest",
     "rollup-plugin-css-only": "latest",
@@ -31,7 +34,6 @@
     "rollup-plugin-replace": "latest",
     "rollup-plugin-serve": "latest",
     "rollup-plugin-typescript2": "latest",
-    "rollup-plugin-uglify": "latest",
     "rollup-watch": "latest",
     "tslib": "latest",
     "tslint": "latest",
@@ -39,7 +41,6 @@
     "typings": "latest"
   },
   "dependencies": {
-    "npm": "^5.7.1",
-    "react-autosize-textarea": "^3.0.2"
+    "npm": "^5.7.1"
   }
 }
