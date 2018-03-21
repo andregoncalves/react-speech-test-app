@@ -51,7 +51,7 @@ const Feedback: React.SFC<FeedbackProps> = (props) => {
         {successIcon()}
         <p>Excellent, we understand you!<br/>
         Try another phrase or type a new one.</p>
-        <audio src="dist/public/success.mp3" autoPlay />
+        <audio src="assets/public/success.mp3" autoPlay />
       </div>
     );
   }
@@ -61,7 +61,7 @@ const Feedback: React.SFC<FeedbackProps> = (props) => {
       <div className="feedback FAILED">
         {failedIcon()}
         <p>What did you say? We can't understand you. Try again!</p>
-        <audio src="dist/public/error.mp3" autoPlay />
+        <audio src="assets/public/error.mp3" autoPlay />
       </div>
     );
   }

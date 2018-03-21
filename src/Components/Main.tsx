@@ -62,7 +62,7 @@ class App extends React.Component <AppProps, AppState> {
   componentDidMount () {
 
     // Instantiate web worker
-    this.encoder = new Worker('dist/Worker.js');
+    this.encoder = new Worker('assets/Worker.js');
     this.encoder.onmessage = this._onWorkerData;
 
     if (constants.SUPPORTS_RECOGNITION_API) {

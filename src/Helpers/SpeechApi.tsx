@@ -15,7 +15,7 @@ const CloudSpeechAPI = {
    * language: language code, ex: en-US
    * alternatives: number of possible alternatives to display
    */
-  sendRequest (blob: Blob, sampleRate: String, language: String, alternatives: Number = 1) {
+  sendRequest (blob: Blob, sampleRate: string, language: string, alternatives: number = 1) {
     // use FileReader to convert Blob to base64 encoded data-URL
     const reader = new (window as any).FileReader();
 

@@ -58,8 +58,8 @@ const plugins = [
       importHelpers: true,
   }),*/
   copy({
-    "src/Workers/Worker.js": "dist/Worker.js",
-    "src/Workers/libflac3-1.3.2.min.js": "dist/libflac3-1.3.2.min.js",
+    "src/Workers/Worker.js": "assets//Worker.js",
+    "src/Workers/libflac3-1.3.2.min.js": "assets//libflac3-1.3.2.min.js",
     verbose: true
   })
 ];
@@ -74,7 +74,7 @@ if (nodeEnv === dev) {
         contentBase: '.'
     }));
     //plugins.push(serve('.'));
-    plugins.push(livereload({watch: 'dist'}));
+    plugins.push(livereload({ watch: 'assets/' }));
 }
 
 if (nodeEnv === prod) {
@@ -86,7 +86,7 @@ export default {
     input: './src/index.tsx',
     output: {
       sourcemap: nodeEnv === dev ? true : false,
-      file: './dist/bundle.js',
+      file: './assets//bundle.js',
       format: 'iife'
     }
 };
