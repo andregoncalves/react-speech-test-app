@@ -6,7 +6,12 @@
  * @copyright: 2018 Andre Gocalves
  * ==========================================================================
  */
-const data = {
+
+interface LanguageData {
+  [key: string]: string[];
+}
+
+const data: LanguageData = {
   'en-US': [
     'Hello! How are you?',
     'I don\'t like to study here. It\'s very noisy',
@@ -19,7 +24,7 @@ const data = {
     'Excuse me, do you know what time it is?',
     'I’m sorry for the mess. I wasn’t expecting anyone today.',
     'I’m not sure if we should paint the room yellow or blue.',
-    'Let’s hire a band to play music, and photograph the event.',
+    'Let’s hire a band to play music.',
     'Actually, I am running a bit behind, but they’ll be done by noon!',
   ],
   'es-ES': [
@@ -45,10 +50,10 @@ const data = {
     'Qu’est-ce que vous conseillez?',
     'L’addition, s’il vous plaît.',
     'À quelle heure est le film?',
-    'Alors nous devrions partir maintenant.',
+    'Alors nous devons partir maintenant.',
     'Combien de temps vas-tu rester ici?',
     'Alors, qui vient à la fête? Personne ne vient.',
-    'Hey, es-tu occupé ce soir?',
+    'Es-tu occupé ce soir?',
     'Pas vraiment. Pourquoi?',
     'Comment es-tu arrivé ici?',
     'A quelle heure finiras-tu de travailler ce soir?',

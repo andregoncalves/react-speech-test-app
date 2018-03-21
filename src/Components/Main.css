@@ -42,9 +42,7 @@ section.screen {
 
   background: #1E384C;
   transition: background-color .3s;
-  border-radius: 5px;
   position: relative;
-
 
   color: rgb(50, 186, 250);
   background-color: rgb(30, 56, 76);
@@ -55,5 +53,15 @@ section.screen {
   transition: transform 0.5s cubic-bezier(0,0,0.3,1);
   will-change: transform;
   transform: translateY( -750px );
+}
+
+div.copyright {
+  position: absolute;
+  bottom: 10px;
+  text-align: center;
+  width: 100vw;
+  font-size: 12px;
+  text-shadow: 1px 1px 1px #ccc;
+  font-family: monospace
 }
 

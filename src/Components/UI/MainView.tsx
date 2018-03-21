@@ -14,14 +14,16 @@ import Feedback from './Feedback';
 import AudioWave from './AudioWave';
 
 import TextareaAutosize from 'react-autosize-textarea';
+import Phrases from '../../phrases';
 
 interface MainViewProps {
   ref: any;
   langCode: string;
   language: string;
   result: number;
-  onShowLanguageMenu? (Event: any): void;
-  onStartRecording? (Event: any): void;
+  onShowLanguageMenu? (event: any): void;
+  onStartRecording? (event: any): void;
+  onTextChanged (text: string): void;
   isRecording: boolean;
   audioAnalyser: AnalyserNode | undefined;
   visible: boolean;
@@ -30,6 +32,7 @@ interface MainViewProps {
 interface MainViewState {
   language: string;
   langCode: string;
+  text: string;
 }
 
 class MainView extends React.Component <MainViewProps, MainViewState> {
@@ -53,11 +56,41 @@ class MainView extends React.Component <MainViewProps, MainViewState> {
     this.state = {
       language: 'English',
       langCode: props.langCode,
+      text: this._newText(props.langCode),
      };
+  }
+
+  componentWillReceiveProps (props: MainViewProps) {
+    if (props.langCode !== this.state.langCode) {
+      this.setState({
+        text: this._newText(props.langCode),
+        langCode: props.langCode,
+      });
+    }
   }
 
   getText = (): string => {
     return this.textInput!.value.toLowerCase();
+  }
+
+  _newText = (langCode: string): string => {
+    const data: string[]  = Phrases[langCode] as string[];
+    // Get a random phrase from the array
+    const text: string = data[Math.floor(Math.random() * data.length)];
+    return text;
+  }
+
+  _changeText = (): void => {
+    //const current = this.getText();
+    const text = this._newText(this.state.langCode);
+    this.setState({ text });
+    this.props.onTextChanged(text);
+  }
+
+  _handleTextChange = (ev: React.FormEvent<EventTarget>): void => {
+    const target: HTMLTextAreaElement = ev.target as HTMLTextAreaElement;
+    const text: string = target.value;
+    this.setState({ text });
   }
 
   render () {
@@ -71,9 +104,9 @@ class MainView extends React.Component <MainViewProps, MainViewState> {
 
         <div className="phrases">
           <div>
-            <svg width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1427 301l-531 531 531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19l-742-742q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z"/></svg>
-            <TextareaAutosize innerRef={ref => this.textInput = ref} defaultValue="Good morning, how do you do?" />
-            <svg className={`result-${result}`} width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"/></svg>
+            <svg style={{ visibility: 'hidden' }} width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1427 301l-531 531 531 531q19 19 19 45t-19 45l-166 166q-19 19-45 19t-45-19l-742-742q-19-19-19-45t19-45l742-742q19-19 45-19t45 19l166 166q19 19 19 45t-19 45z"/></svg>
+            <TextareaAutosize innerRef={ref => this.textInput = ref} value={this.state.text} onChange={this._handleTextChange} />
+            <svg onClick={this._changeText} className={`result-${result}`} width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"/></svg>
           </div>
         </div>
 

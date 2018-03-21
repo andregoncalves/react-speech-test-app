@@ -12,10 +12,10 @@ class SpeechRecognitionAPI {
   private api: any;
   private expects: string;
 
-  public onResult: Function;
-  public onError: Function;
-  public onEnd: Function;
-  public onAudioEnd: Function;
+  public onResult: any;
+  public onError: any;
+  public onEnd: any;
+  public onAudioEnd: any;
 
   constructor () {
     if ('speechRecognition' in window) {
@@ -78,7 +78,7 @@ class SpeechRecognitionAPI {
     this.api.start();
   }
 
-  private _removePunctuation = (str: string) => str.replace(/(~|`|!|@|#|$|%|^|&|\*|\(|\)|{|}|\[|\]|;|:|\"|'|<|,|\.|>|\?|\/|\\|\||-|_|\+|=)/g, '');
+  private _removePunctuation = (str: string) => str.replace(/(~|`|!|@|#|$|%|^|&|\*|\(|\)|{|}|\[|\]|;|:|\"|'|’|<|,|\.|>|\?|\/|\\|\||-|_|\+|=)/g, '');
 }
 
 export default SpeechRecognitionAPI;

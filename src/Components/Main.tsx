@@ -134,6 +134,10 @@ class App extends React.Component <AppProps, AppState> {
     });
   }
 
+  _onTextChanged = (text: string) => {
+    this.setState({ result: NO_RESULT });
+  }
+
   _startRecording = () => {
     this.setState({
       result: NO_RESULT,
@@ -152,12 +156,12 @@ class App extends React.Component <AppProps, AppState> {
         };
 
         console.log(`audioContext.sampleRate: ${config.samplerate}`);
-        this.encoder.postMessage({ cmd: WorkerCommand.INIT, config });
+        this.encoder.postMessage({ cmd: 'init', config });
 
         this.media.node.onaudioprocess = (e: any) => {
           const channelLeft  = e.inputBuffer.getChannelData(0);
           // const channelRight = e.inputBuffer.getChannelData(1);
-          this.encoder.postMessage({ cmd: WorkerCommand.ENCODE, buf: channelLeft});
+          this.encoder.postMessage({ cmd: 'encode', buf: channelLeft});
         };
 
         return source;
@@ -208,6 +212,7 @@ class App extends React.Component <AppProps, AppState> {
           audioAnalyser={this.media.analyser}
           onStartRecording={this._onStartRecording}
           onShowLanguageMenu={this._onShowLanguageMenu}
+          onTextChanged={this._onTextChanged}
           visible={this.state.view === AppViews.MAIN} />
 
         <LanguageMenuView

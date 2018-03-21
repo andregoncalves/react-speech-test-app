@@ -49,7 +49,8 @@ const Feedback: React.SFC<FeedbackProps> = (props) => {
     return (
       <div className="feedback SUCCESS">
         {successIcon()}
-        <p>Excellent, we understand you! Try another phrase</p>
+        <p>Excellent, we understand you!<br/>
+        Try another phrase or type a new one.</p>
         <audio src="dist/public/success.mp3" autoPlay />
       </div>
     );
