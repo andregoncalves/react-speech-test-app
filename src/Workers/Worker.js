@@ -34,7 +34,6 @@ function write_wav(buffer){
 }
 
 self.onmessage = function(e) {
-
   switch (e.data.cmd) {
 
   case 'save_as_wavfile':
@@ -45,7 +44,6 @@ self.onmessage = function(e) {
     break;
 
   case 'init':
-
     if (WAVFILE){
       // save as WAV-file
 
@@ -123,7 +121,8 @@ self.onmessage = function(e) {
     } else {
 
       // FLAC
-      encodeFlac(e.data.buf);
+      if (INIT)
+        encodeFlac(e.data.buf);
 
     }
     break;

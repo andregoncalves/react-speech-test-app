@@ -62,9 +62,16 @@ export default class MediaHelper {
   }
 
   stopStream () {
-    const track = this.stream.getTracks()[0];
-    track.stop();
-    this.node.disconnect();
+    console.log('Stopping stream');
+    if (this.stream) {
+      const tracks = this.stream!.getTracks();
+      tracks.forEach(function(track) {
+        track.stop();
+      });
+    }
+    if (this.node) {
+      this.node.disconnect();
+    }
 
     if (this.animationFrame) {
       window.cancelAnimationFrame(this.animationFrame);

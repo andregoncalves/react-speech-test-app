@@ -64,31 +64,37 @@ class App extends React.Component <AppProps, AppState> {
     // Instantiate web worker
     this.encoder = new Worker(constants.ASSETS_PATH + '/Worker.js');
     this.encoder.onmessage = this._onWorkerData;
+    this.encoder.onmessageerror = (e: any) => console.error(e);
+    this.encoder.onerror = (e: any) => console.error(e);
 
     if (constants.SUPPORTS_RECOGNITION_API) {
-    this.speechAPI = new SpeechRecognitionAPI();
+      this.speechAPI = new SpeechRecognitionAPI();
 
-    // Recognition was successful
-    // result is number representing the confidence in the result
-    this.speechAPI.onResult = (result: number) => this.setState({ result });
+      // Recognition was successful
+      // result is number representing the confidence in the result
+      this.speechAPI.onResult = (result: number) => this.setState({ result });
 
-    // Recognition Complete
-    // A timeout is needed because sometimes the API doesn't
-    // return any value, so, we wait 500ms to make sure the
-    // the recognition process has completed
-    this.speechAPI.onEnd = () => {
-      this._stopRecording();
+      // Recognition Complete
+      // A timeout is needed because sometimes the API doesn't
+      // return any value, so, we wait 500ms to make sure the
+      // the recognition process has completed
+      this.speechAPI.onEnd = () => {
+        if (this.state.isRecording) {
+          this._stopRecording();
 
-      setTimeout(() => {
-        if (this.state.result === NO_RESULT) {
-          this.setState({ result: FAILED_RESULT });
+          setTimeout(() => {
+            if (this.state.result === NO_RESULT) {
+              this.setState({ result: FAILED_RESULT });
+            }
+          }, 500);
         }
-      }, 500);
-    };
+      };
 
       this.speechAPI.onAudioEnd = () => {
-      console.log('%c[APP] Automatic silence detected via SpeechRecognition API', 'color: brown; background: yellow');
-      this._stopRecording();
+        if (this.state.isRecording) {
+          console.log('%c[APP] Automatic silence detected via SpeechRecognition API', 'color: brown; background: yellow');
+          this._stopRecording();
+        }
       };
     }
   }
@@ -96,14 +102,23 @@ class App extends React.Component <AppProps, AppState> {
   _onWorkerData = (e: IWorkerDataEvent) => {
     const cmd = e.data.cmd;
 
-    if (cmd === WorkerCommand.END) {
-      this.encoder.terminate();
-      this.encoder = undefined;
+    if (cmd === 'end') {
+      //this.encoder.terminate();
 
       console.log('Sending data to Cloud Speech API');
-      CloudSpeechAPI.sendRequest(e.data.buf, '44100', this.state.langCode);
+      CloudSpeechAPI.sendRequest(e.data.buf, '44100', this.state.langCode)
+        .then((data: any) => {
+          // TODO: create typings
+          if (data && data['results']) {
+            const result: number = CloudSpeechAPI.compareWith(data['results'][0]['alternatives'][0]['confidence'], data['results'][0]['alternatives'][0]['transcript'], this.mainView.getText());
+            this.setState({ result });
+          }
+          else {
+            this.setState({ result: FAILED_RESULT });
+          }
+        });
     }
-    else if (cmd === WorkerCommand.DEBUG) {
+    else if (cmd === 'debug') {
       console.log(e.data);
     }
     else {
@@ -128,6 +143,8 @@ class App extends React.Component <AppProps, AppState> {
   }
 
   _onShowLanguageMenu = () => {
+    this._stopRecording();
+
     this.setState({
       view: AppViews.LANGUAGES,
       result: NO_RESULT,
@@ -136,6 +153,13 @@ class App extends React.Component <AppProps, AppState> {
 
   _onTextChanged = (text: string) => {
     this.setState({ result: NO_RESULT });
+  }
+
+  _encodeAudio = (e: any) => {
+    // We're using just the left audio channel because stereo causes an issue with encoding
+    const channelLeft  = e.inputBuffer.getChannelData(0);
+    // const channelRight = e.inputBuffer.getChannelData(1);
+    this.encoder.postMessage({ cmd: 'encode', buf: channelLeft });
   }
 
   _startRecording = () => {
@@ -156,20 +180,17 @@ class App extends React.Component <AppProps, AppState> {
         };
 
         console.log(`audioContext.sampleRate: ${config.samplerate}`);
+        console.log(this.encoder);
         this.encoder.postMessage({ cmd: 'init', config });
 
-        this.media.node.onaudioprocess = (e: any) => {
-          const channelLeft  = e.inputBuffer.getChannelData(0);
-          // const channelRight = e.inputBuffer.getChannelData(1);
-          this.encoder.postMessage({ cmd: 'encode', buf: channelLeft});
-        };
+        this.media.node.addEventListener('audioprocess', this._encodeAudio);
 
         return source;
       })
       // Now connect all the processing nodes
       .then((source: MediaStreamAudioSourceNode) => {
-        source.connect(this.media.node);
-        this.media.node.connect(this.media.audioCtx.destination);
+        source.connect(this.media.node!);
+        this.media.node!.connect(this.media.audioCtx.destination);
         source.connect(this.media.analyser);
 
         return source;
@@ -184,9 +205,11 @@ class App extends React.Component <AppProps, AppState> {
           this.speechAPI!.start();
         }
         else {
-          this.media.detectSilence(this.media.stream, source)
+          this.media.detectSilence(this.media.stream!, source)
             .then(() => {
-              this.encoder.postMessage({ cmd: WorkerCommand.FINISH });
+              this._stopRecording();
+
+              this.encoder.postMessage({ cmd: 'finish' });
               this.setState({ isRecording: false });
             });
         }
@@ -194,7 +217,15 @@ class App extends React.Component <AppProps, AppState> {
   }
 
   _stopRecording = () => {
+    if (this.media.node) {
+      this.media.node.removeEventListener('audioprocess', this._encodeAudio);
+    }
+
     this.media.stopStream();
+
+    if (this.speechAPI) {
+      this.speechAPI.stop();
+    }
 
     this.setState({ isRecording: false });
   }

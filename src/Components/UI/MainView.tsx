@@ -75,8 +75,15 @@ class MainView extends React.Component <MainViewProps, MainViewState> {
 
   _newText = (langCode: string): string => {
     const data: string[]  = Phrases[langCode] as string[];
+
     // Get a random phrase from the array
-    const text: string = data[Math.floor(Math.random() * data.length)];
+    // Prevent reusing the same one
+    let text: string = data[Math.floor(Math.random() * data.length)];
+    const current: string = this.state ? this.state.text : '';
+
+    while ( text === current ) {
+      text = data[Math.floor(Math.random() * data.length)];
+    }
     return text;
   }
 

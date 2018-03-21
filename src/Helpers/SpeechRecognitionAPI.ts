@@ -78,6 +78,10 @@ class SpeechRecognitionAPI {
     this.api.start();
   }
 
+  stop () {
+    this.api.stop();
+  }
+
   private _removePunctuation = (str: string) => str.replace(/(~|`|!|@|#|$|%|^|&|\*|\(|\)|{|}|\[|\]|;|:|\"|'|’|<|,|\.|>|\?|\/|\\|\||-|_|\+|=)/g, '');
 }
 
