@@ -60,6 +60,7 @@ const plugins = [
   copy({
     "src/Workers/Worker.js": "assets//Worker.js",
     "src/Workers/libflac3-1.3.2.min.js": "assets//libflac3-1.3.2.min.js",
+    "src/Workers/libflac3-1.3.2.min.js.mem": "assets//libflac3-1.3.2.min.js.mem",
     verbose: true
   })
 ];
