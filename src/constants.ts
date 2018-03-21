@@ -8,6 +8,8 @@
  */
 
 export default {
+  PRODUCTION: (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1'),
+  ASSETS_PATH: (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') ? '/speech-test/assets' : './assets',
   API_KEY: 'AIzaSyB583zRApVuJefhnnvVEXr05UeuvYr7LdU',
   SUPPORTS_BGSYNC: 'SyncManager' in self,
   SUPPORTS_IMAGE_CAPTURE: 'ImageCapture' in self,

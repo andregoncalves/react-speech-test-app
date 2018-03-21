@@ -15,6 +15,7 @@ div.feedback p {
   display: inline-block;
   padding: 4px 8px;
   color: #FFF;
+  letter-spacing: 1px;
 }
 
 div.feedback.FAILED p {
