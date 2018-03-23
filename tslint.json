@@ -45,13 +45,13 @@
     "no-switch-case-fall-through": true,
     "no-unsafe-finally": true,
     "no-unused-expression": true,
-    //"no-unused-new": true,
+    /*"no-unused-new": true,*/
     "no-var-keyword": true,
     "no-void-expression": false,
     "radix": true,
     "restrict-plus-operands": true,
     "triple-equals": true,
-    //"typeof-compare": true,
+    /*"typeof-compare": true,*/
     "use-isnan": true,
     "eofline": true,
     "indent": [true, "spaces"],
