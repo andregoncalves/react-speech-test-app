@@ -22,7 +22,7 @@ const LanguageMenuView: React.SFC<LanguageMenuViewProps> = (props) => {
         <h1>Choose a Language</h1>
       </header>
       <ul>
-        <li value="en-us" title="English" onClick={props.onChange}>English</li>
+        <li value="en-US" title="English" onClick={props.onChange}>English</li>
         <li value="es-ES" title="Spanish" onClick={props.onChange}>Spanish</li>
         <li value="fr-FR" title="French" onClick={props.onChange}>French</li>
         <li value="de-DE" title="German" onClick={props.onChange}>German</li>
