@@ -151,7 +151,9 @@ class App extends React.Component <AppProps, AppState> {
     });
   }
 
+  // User clicked the arrow to change text or started editing the textarea
   _onTextChanged = (text: string) => {
+    this._stopRecording();
     this.setState({ result: NO_RESULT });
   }
 
@@ -208,9 +210,7 @@ class App extends React.Component <AppProps, AppState> {
           this.media.detectSilence(this.media.stream!, source)
             .then(() => {
               this._stopRecording();
-
               this.encoder.postMessage({ cmd: 'finish' });
-              this.setState({ isRecording: false });
             });
         }
       });

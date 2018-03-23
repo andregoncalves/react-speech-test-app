@@ -98,6 +98,7 @@ class MainView extends React.Component <MainViewProps, MainViewState> {
     const target: HTMLTextAreaElement = ev.target as HTMLTextAreaElement;
     const text: string = target.value;
     this.setState({ text });
+    this.props.onTextChanged(text);
   }
 
   render () {
